@@ -32,8 +32,9 @@ def test():
     serv = test.get_best_server().get('id') # server id number
     s_lon = test.get_best_server().get('lon') # server longitude
     s_lat = test.get_best_server().get('lat') # server latitude
+    name = test.get_best_server().get('name') # server municipal location
 
-    return ds, us, serv, s_lon, s_lat
+    return ds, us, serv, s_lon, s_lat, name
 
 def append_test(src):
 
@@ -41,12 +42,12 @@ def append_test(src):
         # input client lon and lat .. default here is the White House lol
         h_lat = 38.897957
         h_lon = -77.036560
-        ds, us, serv, s_lon, s_lat = test()
+        ds, us, serv, s_lon, s_lat, name = test()
         hour = datetime.now().strftime('%H:%M')
         day = datetime.now().strftime('%Y%m%d')
         distance = haversine(h_lat, h_lon, float(s_lat), float(s_lon))
 
-        row = [hour,day,f'{ds:0.2f}',f'{us:0.2f}',serv,s_lon,s_lat,distance]
+        row = [hour,day,f'{ds:0.2f}',f'{us:0.2f}',serv,name,s_lon,s_lat,distance]
 
         with open(src, 'a+') as f:
             csv_writer = writer(f)
